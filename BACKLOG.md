@@ -3,8 +3,7 @@
 ## Must Have (Core Features)
 
 ### Foundation
-- [TV-01] Set up TypeScript configuration (strict mode, resolveJsonModule)
-- [TV-02] Set up React Navigation stack navigator
+(All foundation tasks completed)
 
 ### Core Features
 - [TV-03] Create HomeScreen with catalog grid (6 items, TV focus, inline mock data) + unit test
@@ -30,3 +29,4 @@
 
 ## Done
 - [TV-01] Set up TypeScript configuration (strict mode, resolveJsonModule)
+- [TV-02] Set up React Navigation stack navigator
