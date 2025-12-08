@@ -1,28 +1,39 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
+    // Target modern JS - Hermes supports ES2022
     "target": "ES2022",
-    "lib": [
-      "ES2022"
-    ],
+    "lib": ["ES2022"],
+
+    // Module system - ESNext for modern imports, bundler handles resolution
     "module": "ESNext",
-    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+
+    // Don't emit JS - Metro/Babel handles transpilation
     "noEmit": true,
+
+    // Required for tools like Babel that process files individually
     "isolatedModules": true,
+
+    // Allow importing JSON files
     "resolveJsonModule": true,
+
+    // JSX handling - use react-native (preserves JSX for Metro)
     "jsx": "react-native",
+
+    // Skip type checking of declaration files for faster compilation
+    "skipLibCheck": true,
+
+    // Interop settings for CommonJS/ESM compatibility
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+    // Strict type checking - catch errors at compile time
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "noFallthroughCasesInSwitch": true
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }

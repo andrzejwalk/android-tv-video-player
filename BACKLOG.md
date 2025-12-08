@@ -26,7 +26,8 @@
 - [TV-14] Add video buffering indicators
 - [TV-15] Improve error recovery UX
 - [TV-16] Add focus state animations
+- [TV-17] Basic accessibility (screen reader labels, semantic roles) - ~30-45 min
 
 ## Done
 - [TV-01] Set up TypeScript configuration (strict mode, resolveJsonModule)
-- [TV-02] Set up React Navigation stack navigator
+- [TV-02] Set up React Navigation stack navigator. Set up Jest and React Testing Library.
