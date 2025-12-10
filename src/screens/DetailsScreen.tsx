@@ -42,8 +42,6 @@ export default function DetailsScreen({ route, item: itemProp, onPlay }: Details
     if (onPlay) {
       onPlay(item);
     } else {
-      // TODO [TV-17]: remove console.log in the clean up task
-      console.log('Play pressed for:', item.title);
       navigation.navigate('Player', { item });
     }
   };

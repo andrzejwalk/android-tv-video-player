@@ -21,7 +21,6 @@
 - [TV-14] Basic accessibility (screen reader labels, semantic roles) - ~30-45 min
 - [TV-15] Add initial focus to the first catalog item
 - [TV-16] Handle Android TV back button on Home (prevent accidental exit)
-- [TV-17] Cleanup pass (remove temp logs, inline mocks, artificial delays where appropriate)
 - [TV-18] Explicitly pause playback on unmount/back (current hook cleanup is sufficient)
 
 ## Done
@@ -32,6 +31,7 @@
 - [TV-05] Create PlayerScreen with video playback (expo-video integration) + unit test
 - [TV-06] Audit loading states (catalog fetching, video buffering)
 - [TV-07] Audit error handling (network errors, playback errors)
+- [TV-17] Cleanup pass (remove inline mocks, artificial delays where appropriate)
 
 
 
