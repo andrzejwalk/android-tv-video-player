@@ -6,7 +6,6 @@
 (All foundation tasks completed)
 
 ### Core Features
-- [TV-07] Audit error handling (network errors, playback errors)
 
 ### Testing
 - [TV-08] Write integration test (Home → Details → Player flow + error handling)
@@ -32,6 +31,7 @@
 - [TV-04] Create DetailsScreen (poster, title, description, Play button, inline mock data) + unit test
 - [TV-05] Create PlayerScreen with video playback (expo-video integration) + unit test
 - [TV-06] Audit loading states (catalog fetching, video buffering)
+- [TV-07] Audit error handling (network errors, playback errors)
 
 
 
@@ -95,3 +95,12 @@
 - Tests:
   - Buffering overlay initially visible; hides on ready; reappears on loading.
   - Existing catalog loading test coverage retained via mocks.
+
+## [TV-07] Error handling audit
+- Goal: Verify friendly errors for network/catalog and playback failures.
+- Plan:
+  - Home: friendly message on catalog fetch failure (existing).
+  - Player: friendly error overlay; custom 404 text; catch-all “No pasaran!” for other errors.
+- Tests:
+  - Home shows error on fetch rejection.
+  - Player shows friendly messages for 404 and catch-all error paths.
