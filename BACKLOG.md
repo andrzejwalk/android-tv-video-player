@@ -32,6 +32,7 @@
 - [TV-07] Audit error handling (network errors, playback errors)
 - [TV-17] Cleanup pass (remove inline mocks, artificial delays where appropriate)
 - [TV-08] Write integration test (Home → Details → Player flow + error handling)
+- [TV-09] Create README (setup, libraries, testing, limitations, TODOs)
 
 
 
@@ -110,3 +111,7 @@
 - Plan: Harness-based test to drive flow without full navigator; mocks expo-video.
 - Tests:
   - `HomeToPlayer.integration.test.tsx` covers the flow and asserts player rendered.
+
+## [TV-09] Documentation
+- Goal: Provide README with setup, Android TV run steps, libraries/why, tests, known limitations/TODOs.
+- Plan: README updated with feature summary, commands, limitations (e.g., 404/403 handling, TV-18 nice-to-have).

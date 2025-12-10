@@ -10,7 +10,7 @@ import type { CatalogItem } from '../../services/catalogService';
 jest.mock('expo-video', () => {
   const ReactActual = jest.requireActual('react');
   const { View } = jest.requireActual('react-native');
-  const MockVideoView = ReactActual.forwardRef((props: object, ref) => (
+  const MockVideoView = ReactActual.forwardRef((props: object, ref: React.Ref<typeof View>) => (
     <View ref={ref} {...props} />
   ));
   MockVideoView.displayName = 'MockVideoView';
