@@ -6,7 +6,6 @@
 (All foundation tasks completed)
 
 ### Core Features
-- [TV-05] Create PlayerScreen with video playback (react-native-video integration) + unit test
 - [TV-06] Audit loading states (catalog fetching, video buffering)
 - [TV-07] Audit error handling (network errors, playback errors)
 
@@ -25,12 +24,14 @@
 - [TV-15] Add initial focus to the first catalog item
 - [TV-16] Handle Android TV back button on Home (prevent accidental exit)
 - [TV-17] Cleanup pass (remove temp logs, inline mocks, artificial delays where appropriate)
+- [TV-18] Explicitly pause playback on unmount/back (current hook cleanup is sufficient)
 
 ## Done
 - [TV-01] Set up TypeScript configuration (strict mode, resolveJsonModule)
 - [TV-02] Set up React Navigation stack navigator. Set up Jest and React Testing Library.
 - [TV-03] Create HomeScreen with catalog grid (6 items, TV focus), fetch catalog data, loading + error states, inline mock fallback, unit test
 - [TV-04] Create DetailsScreen (poster, title, description, Play button, inline mock data) + unit test
+- [TV-05] Create PlayerScreen with video playback (expo-video integration) + unit test
 
 
 
@@ -72,3 +73,16 @@
   - Renders placeholder when thumbnail missing.
   - Calls onPlay callback when Play pressed.
   - Uses inline mock when no item provided.
+
+## [TV-05] PlayerScreen
+- Goal: Play video streamUrl with native controls and TV-friendly error states.
+- Plan:
+  - Added Player route; uses expo-video with native controls.
+  - Buffering indicator and error overlay; friendly messages for 404 and catch-all.
+- Edge cases:
+  - Buffering overlay shows when status=loading.
+  - Friendly messaging for missing streams; generic block for other errors.
+- Tests:
+  - Renders player component.
+  - Buffering state toggles via status events.
+  - Error states render friendly messages (404 and catch-all).

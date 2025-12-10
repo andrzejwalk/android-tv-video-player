@@ -27,7 +27,8 @@
     "ios": {
       "splash": {
         "image": "./assets/images/icon-1920x720.png"
-      }
+      },
+      "bundleIdentifier": "com.jantomm.backscreenott"
     },
     "newArchEnabled": true,
     "name": "backscreen-ott",

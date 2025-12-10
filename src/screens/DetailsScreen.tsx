@@ -1,7 +1,11 @@
 // src/screens/DetailsScreen.tsx
 import React, { useState } from 'react';
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
+import type {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../navigation/types';
 import type { CatalogItem } from '../services/catalogService';
 
@@ -32,6 +36,7 @@ export default function DetailsScreen({ route, item: itemProp, onPlay }: Details
   const item = itemProp ?? route?.params?.item ?? MOCK_ITEM;
   const [isPlayFocused, setIsPlayFocused] = useState(false);
   const [hasPosterError, setHasPosterError] = useState(false);
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const handlePlay = () => {
     if (onPlay) {
@@ -39,6 +44,7 @@ export default function DetailsScreen({ route, item: itemProp, onPlay }: Details
     } else {
       // TODO [TV-17]: remove console.log in the clean up task
       console.log('Play pressed for:', item.title);
+      navigation.navigate('Player', { item });
     }
   };
 

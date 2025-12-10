@@ -1,7 +1,12 @@
 // src/screens/__tests__/DetailsScreen.test.tsx
 import { fireEvent, render } from '@testing-library/react-native';
+import { useNavigation } from '@react-navigation/native';
 import DetailsScreen from '../DetailsScreen';
 import type { CatalogItem } from '../../services/catalogService';
+
+jest.mock('@react-navigation/native');
+const mockNavigate = jest.fn();
+(useNavigation as jest.Mock).mockReturnValue({ navigate: mockNavigate });
 
 const mockItem: CatalogItem = {
   id: 'test-movie',
@@ -71,6 +76,16 @@ describe('DetailsScreen', () => {
 
     expect(onPlayMock).toHaveBeenCalledTimes(1);
     expect(onPlayMock).toHaveBeenCalledWith(mockItem);
+  });
+
+  it('navigates to Player when onPlay is not provided', () => {
+    const screen = render(
+      <DetailsScreen item={mockItem} route={undefined as never} navigation={undefined as never} />
+    );
+
+    fireEvent.press(screen.getByTestId('details-play-button'));
+
+    expect(mockNavigate).toHaveBeenCalledWith('Player', { item: mockItem });
   });
 
   it('uses inline mock item when no item prop or route params provided', () => {
