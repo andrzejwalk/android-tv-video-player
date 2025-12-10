@@ -11,7 +11,7 @@ type PlayerScreenProps = NativeStackScreenProps<RootStackParamList, 'Player'> & 
 
 export default function PlayerScreen({ route, item: itemProp }: PlayerScreenProps) {
   const item = itemProp ?? route.params.item;
-  const [isBuffering, setIsBuffering] = useState(false);
+  const [isBuffering, setIsBuffering] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 

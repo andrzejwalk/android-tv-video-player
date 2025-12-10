@@ -6,7 +6,6 @@
 (All foundation tasks completed)
 
 ### Core Features
-- [TV-06] Audit loading states (catalog fetching, video buffering)
 - [TV-07] Audit error handling (network errors, playback errors)
 
 ### Testing
@@ -32,6 +31,7 @@
 - [TV-03] Create HomeScreen with catalog grid (6 items, TV focus), fetch catalog data, loading + error states, inline mock fallback, unit test
 - [TV-04] Create DetailsScreen (poster, title, description, Play button, inline mock data) + unit test
 - [TV-05] Create PlayerScreen with video playback (expo-video integration) + unit test
+- [TV-06] Audit loading states (catalog fetching, video buffering)
 
 
 
@@ -86,3 +86,12 @@
   - Renders player component.
   - Buffering state toggles via status events.
   - Error states render friendly messages (404 and catch-all).
+
+## [TV-06] Loading states audit
+- Goal: Ensure loading/buffering indicators are present for catalog fetch and playback.
+- Plan:
+  - Home: spinner while catalog loads (existing).
+  - Player: buffering overlay driven by status events; initial buffering defaults to visible until ready.
+- Tests:
+  - Buffering overlay initially visible; hides on ready; reappears on loading.
+  - Existing catalog loading test coverage retained via mocks.

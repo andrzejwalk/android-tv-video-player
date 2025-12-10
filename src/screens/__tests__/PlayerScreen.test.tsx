@@ -51,6 +51,7 @@ describe('PlayerScreen', () => {
 
     expect(screen.getByTestId('player-video')).toBeTruthy();
     expect(mockAddListener).toHaveBeenCalled();
+    expect(screen.getByText(/Buffering/i)).toBeTruthy(); // initial buffering visible
   });
 
   it('shows buffering indicator when buffering', () => {
@@ -60,6 +61,14 @@ describe('PlayerScreen', () => {
     const statusHandler = mockAddListener.mock.calls.find(
       ([event]) => event === 'statusChange'
     )?.[1];
+
+    // initial buffering visible
+    expect(screen.getByText(/Buffering/i)).toBeTruthy();
+
+    act(() => {
+      statusHandler?.({ status: 'readyToPlay' });
+    });
+    expect(screen.queryByText(/Buffering/i)).toBeNull();
 
     act(() => {
       statusHandler?.({ status: 'loading' });
