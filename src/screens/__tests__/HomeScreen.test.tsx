@@ -1,4 +1,4 @@
-import { render, waitFor } from '@testing-library/react-native';
+import { fireEvent, render, waitFor } from '@testing-library/react-native';
 import HomeScreen from '../HomeScreen';
 import catalogData from '../../data/catalog.json';
 import { fetchCatalog, type CatalogItem } from '../../services/catalogService';
@@ -47,5 +47,20 @@ describe('HomeScreen', () => {
       expect(screen.getByText(/Catalog took a coffee break/i)).toBeTruthy();
     });
     expect(consoleErrorSpy).toHaveBeenCalledWith('Failed to load catalog:', expect.any(Error));
+  });
+
+  it('falls back to placeholder when a thumbnail fails to load', async () => {
+    mockedFetchCatalog.mockResolvedValue([defaultItems[0]]);
+    const screen = render(<HomeScreen />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('catalog-thumbnail-bbb-hls')).toBeTruthy();
+    });
+
+    fireEvent(screen.getByTestId('catalog-thumbnail-bbb-hls'), 'onError');
+
+    await waitFor(() => {
+      expect(screen.getByTestId('catalog-thumbnail-placeholder-bbb-hls')).toBeTruthy();
+    });
   });
 });

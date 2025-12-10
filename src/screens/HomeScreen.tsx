@@ -8,7 +8,10 @@ import {
   Text,
   View,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { fetchCatalog, type CatalogItem } from '../services/catalogService';
+import type { RootStackParamList } from '../navigation/types';
 
 type CatalogCardProps = {
   item: Pick<CatalogItem, 'id' | 'title' | 'thumbnail'>;
@@ -24,6 +27,7 @@ type CatalogCardProps = {
  * Wrap in React.memo if list grows. Currently, memoization would be premature.
  */
 function CatalogCard({ item, isFocused, onPress, onFocus, onBlur }: CatalogCardProps) {
+  const [hasImageError, setHasImageError] = useState(false);
   return (
     <Pressable
       testID={`catalog-tile-${item.id}`}
@@ -35,10 +39,20 @@ function CatalogCard({ item, isFocused, onPress, onFocus, onBlur }: CatalogCardP
       onBlur={onBlur}
       style={[styles.card, isFocused && styles.cardFocused]}
     >
-      {item.thumbnail ? (
-        <Image source={{ uri: item.thumbnail }} style={styles.thumbnail} resizeMode="cover" />
+      {item.thumbnail && !hasImageError ? (
+        <Image
+          testID={`catalog-thumbnail-${item.id}`}
+          source={{ uri: item.thumbnail }}
+          style={styles.thumbnail}
+          resizeMode="cover"
+          onError={() => setHasImageError(true)}
+        />
       ) : (
-        <View style={styles.thumbnailPlaceholder} />
+        <View
+          testID={`catalog-thumbnail-placeholder-${item.id}`}
+          style={styles.thumbnailPlaceholder}
+          accessibilityLabel={`${item.title} thumbnail unavailable`}
+        />
       )}
       <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
         {item.title}
@@ -49,10 +63,13 @@ function CatalogCard({ item, isFocused, onPress, onFocus, onBlur }: CatalogCardP
 
 type HomeScreenProps = {
   items?: CatalogItem[]; // For testing/override
-  onSelect?: (item: CatalogItem) => void;
+  onSelect?: (item: CatalogItem) => void; // Additive side-effects (analytics/tests); navigation still runs
 };
 
+type HomeNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
+
 function HomeScreen({ items: itemsProp, onSelect }: HomeScreenProps) {
+  const navigation = useNavigation<HomeNavigationProp>();
   const [items, setItems] = useState<CatalogItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -90,6 +107,10 @@ function HomeScreen({ items: itemsProp, onSelect }: HomeScreenProps) {
   const isValidFocus = focusedItemId !== null && items.some(({ id }) => id === focusedItemId);
   const handleFocus = (id: string) => setFocusedItemId(id);
   const handleBlur = (id: string) => setFocusedItemId(current => (current === id ? null : current));
+  const handleNavigateToDetails = (selected: CatalogItem) => {
+    onSelect?.(selected);
+    navigation.navigate('Details', { item: selected });
+  };
 
   if (isLoading) {
     return (
@@ -126,7 +147,7 @@ function HomeScreen({ items: itemsProp, onSelect }: HomeScreenProps) {
           <CatalogCard
             item={item}
             isFocused={isValidFocus && focusedItemId === item.id}
-            onPress={() => onSelect?.(item)}
+            onPress={() => handleNavigateToDetails(item)}
             onFocus={() => handleFocus(item.id)}
             onBlur={() => handleBlur(item.id)}
           />

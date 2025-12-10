@@ -6,7 +6,6 @@
 (All foundation tasks completed)
 
 ### Core Features
-- [TV-04] Create DetailsScreen (poster, title, description, Play button, inline mock data) + unit test
 - [TV-05] Create PlayerScreen with video playback (react-native-video integration) + unit test
 - [TV-06] Audit loading states (catalog fetching, video buffering)
 - [TV-07] Audit error handling (network errors, playback errors)
@@ -24,11 +23,14 @@
 - [TV-13] Add focus state animations
 - [TV-14] Basic accessibility (screen reader labels, semantic roles) - ~30-45 min
 - [TV-15] Add initial focus to the first catalog item
+- [TV-16] Handle Android TV back button on Home (prevent accidental exit)
+- [TV-17] Cleanup pass (remove temp logs, inline mocks, artificial delays where appropriate)
 
 ## Done
 - [TV-01] Set up TypeScript configuration (strict mode, resolveJsonModule)
 - [TV-02] Set up React Navigation stack navigator. Set up Jest and React Testing Library.
 - [TV-03] Create HomeScreen with catalog grid (6 items, TV focus), fetch catalog data, loading + error states, inline mock fallback, unit test
+- [TV-04] Create DetailsScreen (poster, title, description, Play button, inline mock data) + unit test
 
 
 
@@ -52,3 +54,21 @@
   - All 6 tiles rendered.
   - Loading state -> spinner shown.
   - Error state -> friendly error message shown.
+
+## [TV-04] DetailsScreen
+- Goal: Build DetailsScreen showing poster, title, description, Play button with TV-friendly focus; navigate from Home.
+- Plan:
+  - Types: Created shared `RootStackParamList` in `navigation/types.ts`.
+  - Navigation: Updated `AppNavigator` with Details route; Home navigates to Details on tile press.
+  - Layout: Horizontal layout with poster (left) and info section (right).
+  - Play button: focusable, styled, no-op for now (TV-05 will wire to Player).
+  - Inline mock: Fallback item if no route params provided.
+- Edge cases:
+  - Missing thumbnail: show placeholder.
+  - Duration formatting: MM:SS format.
+- Tests:
+  - Renders title, description, duration from provided item.
+  - Renders poster when thumbnail provided.
+  - Renders placeholder when thumbnail missing.
+  - Calls onPlay callback when Play pressed.
+  - Uses inline mock when no item provided.
