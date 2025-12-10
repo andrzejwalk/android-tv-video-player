@@ -8,7 +8,6 @@
 ### Core Features
 
 ### Testing
-- [TV-08] Write integration test (Home → Details → Player flow + error handling)
 
 ### Documentation
 - [TV-09] Create README (setup, libraries, testing, limitations, TODOs)
@@ -20,7 +19,7 @@
 - [TV-13] Add focus state animations
 - [TV-14] Basic accessibility (screen reader labels, semantic roles) - ~30-45 min
 - [TV-15] Add initial focus to the first catalog item
-- [TV-16] Handle Android TV back button on Home (prevent accidental exit)
+- [TV-16] Handle Android TV back button on Home (prevent accidental exit, show confirmation)
 - [TV-18] Explicitly pause playback on unmount/back (current hook cleanup is sufficient)
 
 ## Done
@@ -32,6 +31,7 @@
 - [TV-06] Audit loading states (catalog fetching, video buffering)
 - [TV-07] Audit error handling (network errors, playback errors)
 - [TV-17] Cleanup pass (remove inline mocks, artificial delays where appropriate)
+- [TV-08] Write integration test (Home → Details → Player flow + error handling)
 
 
 
@@ -104,3 +104,9 @@
 - Tests:
   - Home shows error on fetch rejection.
   - Player shows friendly messages for 404 and catch-all error paths.
+
+## [TV-08] Integration test
+- Goal: Cover Home → Details → Player navigation with error handling.
+- Plan: Harness-based test to drive flow without full navigator; mocks expo-video.
+- Tests:
+  - `HomeToPlayer.integration.test.tsx` covers the flow and asserts player rendered.
