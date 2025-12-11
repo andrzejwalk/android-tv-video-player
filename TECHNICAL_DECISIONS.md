@@ -8,11 +8,11 @@ This document explains and justifies every configuration choice in this project.
 
 | Layer | Technology | Version | Justification |
 |-------|------------|---------|---------------|
-| Runtime | React Native | 0.82.x | TV app development with native performance |
+| Runtime | React Native | 0.82.x | TV app development with native performance (includes React 19.1.1) |
 | Framework | Expo | 54.x | Simplified RN tooling, TV support via @react-native-tvos/config-tv |
 | Language | TypeScript | 5.9.x | Type safety, IDE support, catch errors at compile time |
 | Navigation | React Navigation | 7.x | Standard RN navigation, TV remote support |
-| Testing | Jest + RTL | 30.x / 13.x | React Native official testing stack |
+| Testing | Jest + RTL | 29.x / 13.x | React Native official testing stack (Jest 29.7.0, RTL 13.3.3) |
 | Linting | ESLint 9 | 9.x | Flat config, modern plugin architecture |
 | Formatting | Prettier | 3.x | Consistent code style, integrated with ESLint |
 
@@ -174,7 +174,7 @@ node-linker=hoisted
 
 **Decision:** Use flat node_modules layout.
 
-**Why:** pnpm's default strict isolation breaks Jest 30's internal module resolution. The `jest-config` package couldn't find `@jest/test-sequencer` due to pnpm's symlink structure.
+**Why:** pnpm's default strict isolation breaks Jest 29's internal module resolution. The `jest-config` package couldn't find `@jest/test-sequencer` due to pnpm's symlink structure.
 
 **Tradeoff:** Loses some pnpm strictness benefits, but Jest works correctly.
 
@@ -185,23 +185,27 @@ node-linker=hoisted
 ### What's Installed (and Why)
 
 **Runtime Dependencies:**
-- `expo` - Framework with TV support
-- `react-native` - Core framework
-- `@react-navigation/native` - Navigation (TV remote compatible)
+- `expo` (^54.0.20) - Framework with TV support
+- `react-native` (~0.82.1) - Core framework
+- `react` (19.1.1) - Required peer dependency of React Native
+- `@react-navigation/native` (^7.1.24) - Navigation (TV remote compatible)
 - `expo-video` - Video playback with native controls (preferred over expo-av for current Expo guidance)
 - `expo-*` packages - Expo modules for splash, status bar
 
 **Dev Dependencies:**
-- `@babel/core` - Required by babel-jest
-- `@react-native/babel-preset` - Official RN Babel config
-- `babel-jest` - Jest's Babel integration
-- `jest` - Test runner
-- `@testing-library/react-native` - Component testing utilities
-- `@types/jest`, `@types/react` - TypeScript definitions
-- `typescript` - Type checker
-- `eslint` + plugins - Linting
-- `prettier` - Formatting
-- `typescript-eslint` - TS linting (unified package)
+- `@babel/core` (^7.28.5) - Required by babel-jest
+- `@react-native/babel-preset` (^0.82.1) - Official RN Babel config
+- `babel-jest` (^29.7.0) - Jest's Babel integration
+- `babel-preset-expo` (^54.0.8) - Expo Babel preset
+- `jest` (^29.7.0) - Test runner
+- `jest-expo` (^54.0.14) - Expo Jest preset
+- `@testing-library/react-native` (^13.3.3) - Component testing utilities
+- `react-test-renderer` (19.1.1) - React test renderer (matches React version)
+- `@types/jest` (^29.5.14), `@types/react` (~19.1.10) - TypeScript definitions
+- `typescript` (~5.9.2) - Type checker
+- `eslint` (^9.39.1) + plugins - Linting
+- `prettier` (^3.7.4) - Formatting
+- `typescript-eslint` (^8.48.1) - TS linting (unified package)
 
 ### What's NOT Installed (and Why)
 
@@ -211,7 +215,6 @@ node-linker=hoisted
 | `@babel/preset-flow` | Removed | Included in `@react-native/babel-preset` |
 | `@babel/preset-typescript` | Not needed | Included in `@react-native/babel-preset` |
 | `ts-jest` | Removed | Using `babel-jest` (via preset) instead |
-| `@jest/test-sequencer` | Removed | Internal Jest dependency, auto-resolved |
 | `@typescript-eslint/parser` | Removed | Replaced by unified `typescript-eslint` |
 | `@typescript-eslint/eslint-plugin` | Removed | Replaced by unified `typescript-eslint` |
 | `@testing-library/jest-native` | Not needed | Deprecated; matchers built into RTL v12.4+ |
