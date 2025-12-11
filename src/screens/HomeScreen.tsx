@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: 220,
-    height: 260,
+    height: 240,
     backgroundColor: '#1a1d23',
     borderRadius: 12,
     padding: 12,
