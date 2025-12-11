@@ -1,4 +1,4 @@
-# Backscreen OTT (Android TV)
+# Video Player - Android TV
 
 Android TV demo app: browse catalog, view details, play video with expo-video, friendly loading/error states, and tests.
 
@@ -31,9 +31,9 @@ Android TV demo app: browse catalog, view details, play video with expo-video, f
 - `@testing-library/react-native`: screen-level tests (unit + integration).
 
 ## Known limitations / TODOs
-- Integration test covers Home → Details → Player; no APK/recording included.
-- TV-18 (nice-to-have): explicit pause on unmount/back; current hook cleanup is sufficient.
-- If any stream URL returns 403/404, user sees friendly copy; URLs are from the provided mock and may occasionally fail.
+- Expo is good for a small project with limited scope but if you need robust protected playback (DRM), we need custom native module probably
+- if you need TV-specific native hooks, advanced remote events, you probably need config plugins or bare workflow;
+- Memory is not an issue with a small app like this but in production optimizations can make or break the app
 
 ## How to run on Android TV emulator
 1) Create Android TV AVD (Android TV image).  
@@ -41,7 +41,6 @@ Android TV demo app: browse catalog, view details, play video with expo-video, f
 3) `pnpm prebuild:tv`  
 4) `pnpm android` (installs dev client on emulator)  
 5) In another terminal: `pnpm dev`  
-6) Open the dev client on the TV emulator; select the project from Metro.
 
 ## Tests included
 - HomeScreen: loading, error, empty, renders 6 tiles.

@@ -42,6 +42,7 @@ module.exports = function (api) {
    - Various RN-specific plugins
 
 **Why not other options:**
+
 - `@babel/preset-env`: Already included in RN preset
 - `ts-jest`: Uses Babel for transforms instead (more consistent with runtime)
 - Separate TypeScript preset: RN preset includes it
@@ -75,6 +76,7 @@ module.exports = {
 3. **`moduleNameMapper` for assets** - Jest runs in Node.js which can't import binary files. Maps image imports to a string stub.
 
 **Why not other options:**
+
 - `ts-jest`: Uses `babel-jest` via preset (same as runtime, more consistent)
 - Custom `transformIgnorePatterns`: Preset handles this correctly
 - `testEnvironment: 'jsdom'`: RN preset uses custom RN environment
@@ -115,6 +117,7 @@ module.exports = {
 7. **`strict: true`** - Enables all strict checks. Better type safety.
 
 **Why not other options:**
+
 - `moduleResolution: "node"`: Doesn't understand modern package.json exports
 - `jsx: "react-jsx"`: Only for web React, not RN
 
@@ -136,6 +139,7 @@ module.exports = {
 4. **`prettier/prettier: 'error'`** - Formats code via ESLint. Single command for lint + format.
 
 **Why not other options:**
+
 - Legacy `.eslintrc`: Deprecated in ESLint 9
 - Separate `@typescript-eslint/*` packages: Unified package is simpler
 
@@ -168,7 +172,7 @@ module.exports = {
 
 ### `.npmrc`
 
-```
+```ini
 node-linker=hoisted
 ```
 
@@ -185,27 +189,26 @@ node-linker=hoisted
 ### What's Installed (and Why)
 
 **Runtime Dependencies:**
-- `expo` (^54.0.20) - Framework with TV support
-- `react-native` (~0.82.1) - Core framework
-- `react` (19.1.1) - Required peer dependency of React Native
-- `@react-navigation/native` (^7.1.24) - Navigation (TV remote compatible)
+
+- `expo` with TV support - good for MVP, quick prototyping
+- `react-native` - Core framework
+- `@react-navigation/native` - Navigation (TV remote compatible); safer bet than Expo Router
 - `expo-video` - Video playback with native controls (preferred over expo-av for current Expo guidance)
-- `expo-*` packages - Expo modules for splash, status bar
 
 **Dev Dependencies:**
-- `@babel/core` (^7.28.5) - Required by babel-jest
-- `@react-native/babel-preset` (^0.82.1) - Official RN Babel config
-- `babel-jest` (^29.7.0) - Jest's Babel integration
-- `babel-preset-expo` (^54.0.8) - Expo Babel preset
-- `jest` (^29.7.0) - Test runner
-- `jest-expo` (^54.0.14) - Expo Jest preset
-- `@testing-library/react-native` (^13.3.3) - Component testing utilities
-- `react-test-renderer` (19.1.1) - React test renderer (matches React version)
-- `@types/jest` (^29.5.14), `@types/react` (~19.1.10) - TypeScript definitions
-- `typescript` (~5.9.2) - Type checker
-- `eslint` (^9.39.1) + plugins - Linting
-- `prettier` (^3.7.4) - Formatting
-- `typescript-eslint` (^8.48.1) - TS linting (unified package)
+
+- `@babel/core` - Required by babel-jest
+- `@react-native/babel-preset` - Official RN Babel config
+- `babel-jest` - Jest's Babel integration
+- `babel-preset-expo` - Expo Babel preset
+- `jest` - Test runner
+- `jest-expo` - Expo Jest preset
+- `@testing-library/react-native` - Component testing utilities
+- `react-test-renderer` - for test debugging
+- `@types/jest`, `@types/react` - TypeScript definitions
+- `typescript` - Type checker
+- `eslint` + plugins - Linting
+- `prettier` - Formatting
 
 ### What's NOT Installed (and Why)
 
@@ -226,12 +229,14 @@ node-linker=hoisted
 ## Testing Strategy
 
 ### Unit Tests (current)
+
 - Location: `src/**/__tests__/*.test.tsx`
 - Tool: Jest + React Testing Library
 - Approach: Render components, assert on output
 - Mocks: Navigation hooks mocked in `jest.setup.js`
 
 ### Integration Tests
+
 - `HomeToPlayer.integration.test.tsx` covers Home → Details → Player flow with inline harness (navigation mocked for determinism).
 
 ### What's Mocked
@@ -240,7 +245,8 @@ node-linker=hoisted
 2. **Static assets** - Images mapped to string stub
 
 ### Future Considerations
-- E2E tests: Detox or Maestro for TV remote simulation
+
+- E2E tests: Detox for TV remote simulation
 - Integration tests: Could also exercise a full `NavigationContainer` if needed
 
 ---
@@ -256,7 +262,7 @@ node-linker=hoisted
 
 ## File Structure Rationale
 
-```
+```text
 ├── src/
 │   ├── screens/           # Screen components
 │   │   └── __tests__/     # Co-located tests
@@ -267,6 +273,7 @@ node-linker=hoisted
 ```
 
 **Decisions:**
+
 - Tests co-located with source (`__tests__/` folders) - easier to find related tests
 - Flat config files at root - standard convention
 - Separate `src/` directory - keeps source separate from config
@@ -285,4 +292,3 @@ node-linker=hoisted
 | `pnpm lint` | Check code with ESLint |
 | `pnpm lint:fix` | Auto-fix lint issues |
 | `pnpm format` | Format code with Prettier |
-
