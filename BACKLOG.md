@@ -3,16 +3,21 @@
 ## Must Have (Core Features)
 
 ### Foundation
+
 (All foundation tasks completed)
 
 ### Core Features
 
+- [TV-19] Add observability: track errors in Bugsnag and analytics in Datadog; set up monitors and alert thresholds
+
 ### Testing
 
 ### Documentation
+
 - [TV-09] Create README (setup, libraries, testing, limitations, TODOs)
 
 ## Nice to Have (If Time Permits)
+
 - [TV-10] Optimize data fetching with retry mechanism
 - [TV-11] Add video buffering indicators
 - [TV-12] Improve error recovery UX
@@ -22,7 +27,23 @@
 - [TV-16] Handle Android TV back button on Home (prevent accidental exit, show confirmation)
 - [TV-18] Explicitly pause playback on unmount/back (current hook cleanup is sufficient)
 
+## Features To Build In the Future
+
+- Continue Watching row with progress bars and quick resume entry point
+  - Challenges: How do we persist progress accurately? How do we sync progress across devices? How do we sort by recency reliably?
+  - Plan: add playback progress store (async storage keyed by content id); update on pause/stop; surface sorted row; use progress bar atom component
+
+- Auto quality selector based on network drops
+  - Challenges: How do we detect sustained network slowdowns vs transient blips? When do we downshift without overreacting? How do we cap minimum acceptable quality?
+  - Plan: track segment download times vs duration and buffer health; log switches with reasons
+
+- Resilient playback: retries with backoff, in-app error states with retry CTA
+  - Challenges: How do we distinguish fatal vs retryable errors? How do we keep UX unobtrusive? How do we avoid endless loops? What telemetry do we log?
+  - Plan: retry policy with capped exponential backoff; show inline retry CTA; log failures with reasons; surface final friendly error
+
+
 ## Done
+
 - [TV-01] Set up TypeScript configuration (strict mode, resolveJsonModule)
 - [TV-02] Set up React Navigation stack navigator. Set up Jest and React Testing Library.
 - [TV-03] Create HomeScreen with catalog grid (6 items, TV focus), fetch catalog data, loading + error states, inline mock fallback, unit test
@@ -34,12 +55,10 @@
 - [TV-08] Write integration test (Home → Details → Player flow + error handling)
 - [TV-09] Create README (setup, libraries, testing, limitations, TODOs)
 
-
-
-
-# Task details
+## Task details
 
 ## [TV-03] HomeScreen
+
 - Goal: Build Android TV-friendly HomeScreen showing a 6-item catalog grid (thumbnail + title) with D-pad focusable tiles using React Native, fetching catalog data with loading and error states (inline mock fallback allowed).
 - Plan:
   - Layout: FlatList grid (3 columns) with D-pad focusable tiles.
@@ -58,6 +77,7 @@
   - Error state -> friendly error message shown.
 
 ## [TV-04] DetailsScreen
+
 - Goal: Build DetailsScreen showing poster, title, description, Play button with TV-friendly focus; navigate from Home.
 - Plan:
   - Types: Created shared `RootStackParamList` in `navigation/types.ts`.
@@ -76,6 +96,7 @@
   - Uses inline mock when no item provided.
 
 ## [TV-05] PlayerScreen
+
 - Goal: Play video streamUrl with native controls and TV-friendly error states.
 - Plan:
   - Added Player route; uses expo-video with native controls.
@@ -89,6 +110,7 @@
   - Error states render friendly messages (404 and catch-all).
 
 ## [TV-06] Loading states audit
+
 - Goal: Ensure loading/buffering indicators are present for catalog fetch and playback.
 - Plan:
   - Home: spinner while catalog loads (existing).
@@ -98,6 +120,7 @@
   - Existing catalog loading test coverage retained via mocks.
 
 ## [TV-07] Error handling audit
+
 - Goal: Verify friendly errors for network/catalog and playback failures.
 - Plan:
   - Home: friendly message on catalog fetch failure (existing).
@@ -107,11 +130,13 @@
   - Player shows friendly messages for 404 and catch-all error paths.
 
 ## [TV-08] Integration test
+
 - Goal: Cover Home → Details → Player navigation with error handling.
 - Plan: Harness-based test to drive flow without full navigator; mocks expo-video.
 - Tests:
   - `HomeToPlayer.integration.test.tsx` covers the flow and asserts player rendered.
 
 ## [TV-09] Documentation
+
 - Goal: Provide README with setup, Android TV run steps, libraries/why, tests, known limitations/TODOs.
 - Plan: README updated with feature summary, commands, limitations (e.g., 404/403 handling, TV-18 nice-to-have).
