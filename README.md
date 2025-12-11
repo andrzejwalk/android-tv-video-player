@@ -2,6 +2,11 @@
 
 Android TV demo app: browse catalog, view details, play video with expo-video, friendly loading/error states, and tests.
 
+
+<video src="https://github.com/user-attachments/assets/7eaae4e1-9043-4299-bb63-8b986836207e" controls></video>
+
+
+
 ## Setup
 - Requirements: Node 18+, pnpm, Android TV emulator/device.
 - Install deps: `pnpm install`
