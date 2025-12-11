@@ -1,5 +1,5 @@
 {
-  "name": "backscreen-ott",
+  "name": "android-tv-video-player",
   "version": "1.0.0",
   "scripts": {
     "start": "EXPO_TV=1 expo start",

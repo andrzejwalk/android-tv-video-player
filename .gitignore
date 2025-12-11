@@ -19,11 +19,8 @@ web-build/
 01-*.md
 02-*.md
 03-*.md
-assignment.txt
-TECHNICAL_DECISIONS.md
 
 # IDE/Editor files
-.cursorrules
 .idea/
 .cursor/
 .vscode/

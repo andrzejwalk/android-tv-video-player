@@ -22,16 +22,16 @@
       "splash": {
         "image": "./assets/images/icon-1920x720.png"
       },
-      "package": "com.jantomm.backscreenott"
+      "package": "com.jantomm.androidtvvideoplayer"
     },
     "ios": {
       "splash": {
         "image": "./assets/images/icon-1920x720.png"
       },
-      "bundleIdentifier": "com.jantomm.backscreenott"
+      "bundleIdentifier": "com.jantomm.androidtvvideoplayer"
     },
     "newArchEnabled": true,
-    "name": "backscreen-ott",
-    "slug": "backscreen-ott"
+    "name": "android-tv-video-player",
+    "slug": "android-tv-video-player"
   }
 }
