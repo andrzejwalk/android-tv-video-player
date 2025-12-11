@@ -31,7 +31,7 @@
 
 - Continue Watching row with progress bars and quick resume entry point
   - Challenges: How do we persist progress accurately? How do we sync progress across devices? How do we sort by recency reliably?
-  - Plan: add playback progress store (async storage keyed by content id); update on pause/stop; surface sorted row; use progress bar atom component
+  - Plan: add playback progress store (async storage keyed by content id); update on pause/stop;
 
 - Auto quality selector based on network drops
   - Challenges: How do we detect sustained network slowdowns vs transient blips? When do we downshift without overreacting? How do we cap minimum acceptable quality?
